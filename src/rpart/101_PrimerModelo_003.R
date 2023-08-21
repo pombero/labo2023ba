@@ -15,13 +15,20 @@ dataset <- fread("./datasets/dataset_pequeno.csv")
 dtrain <- dataset[foto_mes == 202107] # defino donde voy a entrenar
 dapply <- dataset[foto_mes == 202109] # defino donde voy a aplicar el modelo
 
+# Determinar el cp óptimo usando cross-validation
+cv_results <- rpart.control(xval = 10) # 10-fold cross-validation
+model <- rpart("clase_ternaria ~ .", data = dtrain, control = cv_results)
+
+# Valor de cp óptimo
+optimal_cp <- model$cptable[which.min(model$cptable[,"xerror"]),"CP"]
+
 # genero el modelo,  aqui se construye el arbol
 # quiero predecir clase_ternaria a partir de el resto de las variables
 modelo <- rpart(
         formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
-        cp = -0.3, # esto significa no limitar la complejidad de los splits
+        cp = optimal_cp, # esto significa no limitar la complejidad de los splits
         minsplit = 0, # minima cantidad de registros para que se haga el split
         minbucket = 1, # tamaño minimo de una hoja
         maxdepth = 3
