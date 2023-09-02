@@ -135,7 +135,7 @@ ArbolesCrossValidation <- function(data, param, qfolds, pagrupa, semilla) {
     seq(qfolds), # 1 2 3 4 5
     MoreArgs = list(data, param),
     SIMPLIFY = FALSE,
-    mc.cores = qfolds
+    mc.cores = 1
   )
 
   data[, fold := NULL]
