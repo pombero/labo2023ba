@@ -35,7 +35,7 @@ ArbolEstimarGanancia <- function(semilla, param_basicos) {
   # genero el modelo
   # predecir clase_ternaria a partir del resto
   modelo <- rpart("clase_ternaria ~ .",
-    data = dataset[fold == 1], # fold==1  es training,  el 70% de los datos
+    data = dataset[fold == 1], # fold==1  es training,  el 70% de los datos # nolint
     xval = 0,
     control = param_basicos
   ) # aqui van los parametros del arbol
