@@ -1,4 +1,4 @@
-# Corrida general del workflow 
+# Corrida general del workflow
 
 options(error = function() {
   traceback(20)
